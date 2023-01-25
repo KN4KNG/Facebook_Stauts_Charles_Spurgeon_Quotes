@@ -1,4 +1,6 @@
 #supported in Win10 Whereas the working directory is C:\Selenium
+#cookies must be exported to start and at each cookie expiration
+#cookies name: facebook_cookies.pkl saved in selenium directory
 
 from time import sleep 
 from selenium import webdriver
