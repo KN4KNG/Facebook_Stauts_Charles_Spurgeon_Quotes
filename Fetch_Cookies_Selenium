@@ -1,0 +1,45 @@
+#for Win10working Directory C:\Selenium
+
+from time import sleep 
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+import pickle
+
+user_email = '{EMAIL HERE}'
+user_password = '{PASSWORD HERE}'
+mfa_one_time_code = '{ONETIME CODE HERE}'
+
+# create a new Firefox browser instance
+driver = webdriver.Chrome()
+
+# navigate to the Facebook login page
+driver.get('https://www.facebook.com')
+
+# find the email and password input fields and enter the login credentials
+email = driver.find_element_by_id('email')
+email.send_keys(user_email)
+password = driver.find_element_by_id('pass')
+password.send_keys(user_password)
+
+# find the login button and click it
+login_button = driver.find_element_by_name('login')
+login_button.click()
+
+mfacode = driver.find_element_by_id('approvals_code')
+mfacode.send_keys(mfa_one_time_code)
+
+continue_button = driver.find_element_by_id('checkpointSubmitButton')
+continue_button.click()
+sleep(5)
+continue_button = driver.find_element_by_id('checkpointSubmitButton')
+continue_button.click()
+
+# get the cookies from the browser
+cookies = driver.get_cookies()
+
+# close the browser
+# driver.quit()
+
+# save the cookies to a file
+with open('facebook_cookies.pkl', 'wb') as f:
+    pickle.dump(cookies, f)
